@@ -46,7 +46,7 @@ function determineEntity (task, type) {
     const hospitalIdField = task.extra_fields.find((element) => {
       return element.name === 'Hospital ID'
     })
-    string = 'Hospital(s) ' + hospitalIdField.value
+    string = `Hospital(s) ${hospitalIdField.value}`
     link = [
       `https://www.clockwisemd.com/hospitals/${hospitalIdField.value}/patient_queue`,
       `https://www.clockwisemd.com/team/admin/hospitals/${hospitalIdField.value}`
@@ -55,7 +55,7 @@ function determineEntity (task, type) {
     const groupIdField = task.extra_fields.find((element) => {
       return element.name === 'Group ID'
     })
-    string = 'Group(s) ' + groupIdField.value
+    string = `Group(s) ${groupIdField.value}`
     link = [
       `https://www.clockwisemd.com/groups/${groupIdField.value}`,
       `https://www.clockwisemd.com/team/admin/groups/${groupIdField.value}`
@@ -64,7 +64,7 @@ function determineEntity (task, type) {
     const orgIdField = task.extra_fields.find((element) => {
       return element.name === 'Org ID'
     })
-    string =  'Org(s) ' + orgIdField.value
+    string = 'Org(s) ' + orgIdField.value
     link = [
       `https://www.clockwisemd.com/organizations/${orgIdField.value}/users`,
       `https://www.clockwisemd.com/team/admin/organizations/${orgIdField.value}`
