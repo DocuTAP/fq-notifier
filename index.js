@@ -104,25 +104,35 @@ function processNewTask (taskId, state) {
     }
   }
   request(options, (error, response, body) => {
-    let messageContent = formSlackMessage(body)
-    let nextOptions = {
-      method: 'POST',
-      uri: SLACK_CHAT_POST_ROUTE,
-      form: {
-        token: SLACK_OAUTH_ACCESS,
-        channel: SLACK_CHANNEL,
-        attachments: messageContent,
-        as_user: true
-      },
-      headers: {
-        'Content-Type': APPLICATION_JSON,
-        'Accept': APPLICATION_JSON
-      }
+    console.log('Fetched ticket information from Clockwise')
+    console.log('statusCode: ', response && response.statusCode)
+    console.log('error: ', error)
+    console.log('body: ', body)
+    if (!error) { postTaskToSlack(body) }
+  })
+}
+
+function postTaskToSlack (cwAppointment) {
+  let messageContent = formSlackMessage(cwAppointment);
+  let nextOptions = {
+    method: 'POST',
+    uri: SLACK_CHAT_POST_ROUTE,
+    form: {
+      token: SLACK_OAUTH_ACCESS,
+      channel: SLACK_CHANNEL,
+      attachments: messageContent,
+      as_user: true
+    },
+    headers: {
+      'Content-Type': APPLICATION_JSON,
+      'Accept': APPLICATION_JSON
     }
-    console.log('Posted Slack Message!')
-    console.log(error)
-    console.log(response)
-    request(nextOptions)
+  }
+  request(nextOptions, (error, response, body) => {
+    console.log('Posted message to Slack')
+    console.log('statusCode: ', response && response.statusCode)
+    console.log('error: ', error)
+    console.log('body: ', body)
   })
 }
 
